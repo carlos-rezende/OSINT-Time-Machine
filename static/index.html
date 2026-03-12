@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Reconstrua a evolução histórica do attack surface de qualquer domínio">
+  <title>OSINT Time Machine</title>
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-actions">
+        <select class="lang-select" id="langSelect" title="Idioma" aria-label="Idioma">
+          <option value="pt">PT</option>
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+        </select>
+        <button type="button" class="theme-toggle" id="themeToggle" title="Alternar tema" aria-label="Alternar tema">
+          <span class="theme-icon">🌙</span>
+        </button>
+      </div>
+      <h1 class="logo">
+        <span class="logo-icon">⏳</span>
+        OSINT Time Machine
+      </h1>
+      <p class="tagline">Reconstrua a evolução histórica do attack surface de qualquer domínio</p>
+    </header>
+
+    <main class="main">
+      <div class="history-section" id="historySection" hidden>
+        <div class="history-header">
+          <span class="history-label" data-i18n="recent">Recentes:</span>
+          <button type="button" class="btn-clear-history" id="clearHistoryBtn" data-i18n="clearHistory">Limpar</button>
+        </div>
+        <div class="history-chips" id="historyChips"></div>
+      </div>
+
+      <form class="search-form" id="searchForm">
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="domainInput"
+            placeholder="exemplo.com"
+            autocomplete="off"
+            required
+          >
+          <button type="submit" id="submitBtn" class="btn-primary">
+            <span class="btn-text" data-i18n="analyze">Analisar</span>
+            <span class="btn-loader" aria-hidden="true"></span>
+          </button>
+        </div>
+      </form>
+
+      <div class="results" id="results" hidden>
+        <div class="view-tabs">
+          <button type="button" class="tab-btn active" data-view="timeline">Timeline</button>
+          <button type="button" class="tab-btn" data-view="graph">Grafo</button>
+        </div>
+
+        <section class="timeline-section view-panel" id="timelineView">
+          <h2 data-i18n="timelineTitle">Attack Surface Timeline</h2>
+          <p class="domain-label" id="domainLabel"></p>
+          <div class="timeline" id="timeline"></div>
+        </section>
+
+        <section class="graph-section view-panel" id="graphView" hidden>
+          <h2 data-i18n="graphTitle">Attack Surface Evolution Graph</h2>
+          <div class="graph-controls">
+            <label>
+              <span data-i18n="filterByYear">Filtrar por ano:</span>
+              <select id="graphYearFilter">
+                <option value="" data-i18n="allYears">Todos</option>
+              </select>
+            </label>
+          </div>
+          <p class="graph-hint" data-i18n="graphHint">Use o scroll para zoom • Arraste para mover • Arraste os nós para reposicionar</p>
+          <div class="graph-container" id="graphContainer"></div>
+        </section>
+
+        <section class="exposures-section" id="exposuresSection" hidden>
+          <h2>⚠️ Exposições Detectadas</h2>
+          <ul class="exposures-list" id="exposuresList"></ul>
+        </section>
+
+        <div class="export-actions">
+          <button type="button" class="btn-secondary" id="exportJsonBtn">Exportar JSON</button>
+          <button type="button" class="btn-secondary" id="exportPdfBtn">Exportar PDF</button>
+        </div>
+      </div>
+
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">🔍</div>
+        <p>Digite um domínio para descobrir subdomínios históricos, certificados TLS e endpoints antigos.</p>
+        <p class="hint">Ex: github.com, google.com, microsoft.com</p>
+      </div>
+
+      <div class="error-state" id="errorState" hidden>
+        <div class="error-icon">!</div>
+        <p id="errorMessage"></p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>Dados: crt.sh · Wayback Machine · DNS · GitHub</p>
+    </footer>
+  </div>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="/static/js/i18n.js"></script>
+  <script src="/static/js/app.js"></script>
+  <script>applyTranslations();</script>
+</body>
+</html>
