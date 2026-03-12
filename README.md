@@ -2,7 +2,7 @@
 
 Reconstrói a evolução histórica do **attack surface** de qualquer domínio, descobrindo subdomínios, certificados TLS, endpoints antigos e possíveis exposições ao longo do tempo.
 
-![OSINT Time Machine](https://img.shields.io/badge/OSINT-Time%20Machine-58a6ff?style=for-the-badge)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-green)](https://osint-time-machine.onrender.com/)
 ![Python](https://img.shields.io/badge/Python-3.11+-3776ab?style=flat-square&logo=python)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-009688?style=flat-square&logo=fastapi)
 
